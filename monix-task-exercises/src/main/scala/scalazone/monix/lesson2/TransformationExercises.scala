@@ -71,11 +71,17 @@ object TransformationExercises extends App {
     *   a + a + compute()
     * }}}
     */
-  def ex6(compute: () => Int): Task[Int] = ???
+  def ex6(compute: () => Int): Task[Int] = {
+    val a = Task.now(compute())
+    for {
+      x <- a
+      y <- a
+    } yield (x + y + compute())
+  };
 
   /** Exercise 7
     *
-    * Write a recursive `flatMap` loop that will run `task` repeteadly
+    * Write a recursive `flatMap` loop that will run `task` repeatedly
     * until it's value is > n OR we have reached maximum number of retries.
     */
   def ex7(task: Task[Int], n: Int, maxRetries: Int): Task[Int] = ???
