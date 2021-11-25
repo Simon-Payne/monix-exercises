@@ -84,5 +84,12 @@ object TransformationExercises extends App {
     * Write a recursive `flatMap` loop that will run `task` repeatedly
     * until it's value is > n OR we have reached maximum number of retries.
     */
-  def ex7(task: Task[Int], n: Int, maxRetries: Int): Task[Int] = ???
+  def ex7(task: Task[Int], n: Int, maxRetries: Int): Task[Int] = {
+    task.flatMapLoop(0) { (a, trynum, continue) =>
+    if (trynum < maxRetries && a <= n)
+      continue(a)
+    else
+      Task.now(a)
+    }
+  }
 }
